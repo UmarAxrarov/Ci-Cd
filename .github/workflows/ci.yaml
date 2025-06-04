@@ -31,7 +31,7 @@ jobs:
             mkdir -p Projects
             cd Projects
             git clone https://github.com/UmarAxrarov/Ci-Cd.git
-            cd 23-dars_y_ustoz
+            cd Ci-Cd
             npm install
           fi
           EOF
