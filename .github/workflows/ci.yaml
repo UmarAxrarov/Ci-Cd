@@ -30,7 +30,7 @@ jobs:
           else
             mkdir -p Projects
             cd Projects
-            git clone https://github.com/UmarAxrarov/23-dars_y_ustoz.git
+            git clone https://github.com/UmarAxrarov/Ci-Cd.git
             cd 23-dars_y_ustoz
             npm install
           fi
