@@ -20,3 +20,15 @@ describe('AppController', () => {
     });
   });
 });
+// jobs:
+// #     first_run:
+// #         runs-on: ubuntu-latest
+// #         steps:
+// #             - name: Checkout code
+// #               uses: actions/checkout@v4
+// #             - name: npm i
+// #               run: npm install
+// #             - name: test
+// #               run: npm test
+// #             - name: build
+// #               run: npm run build
