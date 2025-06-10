@@ -8,14 +8,12 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: SSH kalitni sozlash
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 700 ~/.ssh
-          touch ~/.ssh/known_hosts
-          chmod 600 ~/.ssh/known_hosts
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ vars.HOST }} >> ~/.ssh/known_hosts
         shell: bash
@@ -23,16 +21,24 @@ jobs:
       - name: Serverga loyiha o'zgarishlarini qo'shish
         run: |
           ssh ${{ vars.USER }}@${{ vars.HOST }} << 'EOF'
-          if [ -d Projects/23-dars_y_ustoz ]; then
-            cd Projects/23-dars_y_ustoz
-            git pull origin main
-            npm install
-          else
-            mkdir -p Projects
-            cd Projects
-            git clone https://github.com/UmarAxrarov/Ci-Cd.git
-            cd Ci-Cd
-            npm install
-          fi
+            if [ -d ~/Projects/23-dars_y_ustoz ]; then
+              cd ~/Projects/23-dars_y_ustoz
+              git pull origin main
+              npm install
+            else
+              mkdir -p ~/Projects
+              cd ~/Projects
+              git clone https://github.com/UmarAxrarov/Ci-Cd.git 23-dars_y_ustoz
+              cd 23-dars_y_ustoz
+              npm install
+            fi
+          EOF
+        shell: bash
+
+      - name: PM2 orqali serverni ishga tushurish
+        run: |
+          ssh ${{ vars.USER }}@${{ vars.HOST }} << 'EOF'
+            cd ~/Projects/23-dars_y_ustoz
+            pm2 restart 23-dars_y_ustoz || pm2 start index.js --name 23-dars_y_ustoz
           EOF
         shell: bash
