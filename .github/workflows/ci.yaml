@@ -39,6 +39,6 @@ jobs:
         run: |
           ssh ${{ vars.USER }}@${{ vars.HOST }} << 'EOF'
             cd ~/Projects/23-dars_y_ustoz
-            pm2 restart 23-dars_y_ustoz || pm2 start index.js --name 23-dars_y_ustoz
+            pm2 restart 23-dars_y_ustoz || pm2 start main.ts --name 23-dars_y_ustoz
           EOF
         shell: bash
